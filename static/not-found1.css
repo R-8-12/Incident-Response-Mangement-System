@@ -1,0 +1,115 @@
+/* CSS file for not-found1.html */
+.not-found1-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: relative;
+    min-height: 400px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .not-found1-max-width {
+    gap: var(--dl-space-space-threeunits);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+  .not-found1-container1 {
+    gap: var(--dl-space-space-oneandhalfunits);
+    flex: 1;
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    padding-left: var(--dl-space-space-fourunits);
+    padding-right: var(--dl-space-space-fourunits);
+    flex-direction: column;
+    justify-content: center;
+  }
+  .not-found1-text1 {
+    font-style: normal;
+    font-weight: 400;
+  }
+  .not-found1-container2 {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    position: relative;
+    min-height: 400px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .not-found1-image {
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    bottom: 0px;
+    height: 100%;
+    position: absolute;
+    object-fit: cover;
+  }
+  .not-found1-container3 {
+    top: 0px;
+    flex: 0 0 auto;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    border: 2px dashed rgba(120, 120, 120, 0.4);
+    bottom: 0px;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    flex-direction: column;
+    background-color: rgba(0,0,0,0.7);
+  }
+  .not-found1-container4 {
+    flex: 0 0 auto;
+    width: 200px;
+    display: flex;
+    z-index: 100;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .not-found1-text3 {
+    color: var(--dl-color-theme-neutral-light);
+  }
+  .not-found1-text4 {
+    color: var(--dl-color-theme-neutral-light);
+  }
+  @media(max-width: 767px) {
+    .not-found1-container {
+      align-items: center;
+      justify-content: center;
+    }
+    .not-found1-container1 {
+      width: 100%;
+      align-items: center;
+      padding-left: var(--dl-space-space-threeunits);
+      padding-right: var(--dl-space-space-threeunits);
+    }
+    .not-found1-text {
+      text-align: center;
+    }
+    .not-found1-text2 {
+      text-align: center;
+    }
+    .not-found1-container2 {
+      display: none;
+    }
+  }
+  @media(max-width: 479px) {
+    .not-found1-container {
+      height: auto;
+    }
+    .not-found1-container1 {
+      padding-left: var(--dl-space-space-oneandhalfunits);
+      padding-right: var(--dl-space-space-oneandhalfunits);
+    }
+  }
+  

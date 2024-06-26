@@ -1,0 +1,46 @@
+/* CSS file for cta11.html */
+.cta11-container {
+    gap: var(--dl-space-space-halfunit);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    flex-direction: column;
+  }
+  .cta11-max-width {
+    width: 100%;
+    display: flex;
+    max-width: var(--dl-size-size-maxwidth);
+    align-items: center;
+    flex-direction: column;
+  }
+  .cta11-content {
+    gap: var(--dl-space-space-oneandhalfunits);
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    flex-direction: column;
+  }
+  .cta11-actions {
+    gap: var(--dl-space-space-oneandhalfunits);
+    display: flex;
+    align-items: flex-start;
+  }
+  .cta11-action1 {
+    text-align: center;
+  }
+  .cta11-action2 {
+    text-align: center;
+  }
+  @media(max-width: 479px) {
+    .cta11-actions {
+      width: 100%;
+      flex-direction: column;
+    }
+    .cta11-button {
+      width: 100%;
+    }
+    .cta11-button1 {
+      width: 100%;
+    }
+  }
+  

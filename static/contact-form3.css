@@ -1,0 +1,85 @@
+/* CSS file for contact-form3.html */
+.contact-form3-contact9 {
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+  }
+  .contact-form3-image1 {
+    flex: 1;
+    width: auto;
+    height: auto;
+    max-width: 640px;
+    border-radius: var(--dl-radius-radius-radius4);
+  }
+  .contact-form3-content {
+    gap: 0;
+    flex: 1;
+    align-items: stretch;
+  }
+  .contact-form3-section-title {
+    gap: var(--dl-space-space-unit);
+    display: flex;
+    align-self: stretch;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .contact-form3-content1 {
+    gap: var(--dl-space-space-oneandhalfunits);
+    display: flex;
+    align-self: stretch;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .contact-form3-input {
+    gap: var(--dl-space-space-halfunit);
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+  }
+  .contact-form3-input1 {
+    gap: var(--dl-space-space-halfunit);
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+  }
+  .contact-form3-container {
+    gap: var(--dl-space-space-halfunit);
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contact-form3-checkbox {
+    gap: var(--dl-space-space-unit);
+    display: flex;
+    align-items: center;
+  }
+  .contact-form3-text6 {
+    height: auto;
+    font-size: 14px;
+    font-style: Regular;
+    text-align: left;
+    font-family: Roboto;
+    font-weight: 400;
+    line-height: 150%;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .contact-form3-button {
+    align-self: flex-start;
+  }
+  @media(max-width: 991px) {
+    .contact-form3-max-width {
+      flex-direction: column;
+    }
+    .contact-form3-content {
+      width: 100%;
+    }
+  }
+  @media(max-width: 767px) {
+    .contact-form3-image1 {
+      width: 100%;
+    }
+  }
+  

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Precious Starry Cassowary</title>
+    <meta property="og:title" content="Precious Starry Cassowary" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <style data-tag="reset-style-sheet">
+      html {
+        line-height: 1.15;
+      }
+      body {
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+      }
+      p,
+      li,
+      ul,
+      pre,
+      div,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      figure,
+      blockquote,
+      figcaption {
+        margin: 0;
+        padding: 0;
+      }
+      button {
+        background-color: transparent;
+      }
+      button,
+      input,
+      optgroup,
+      select,
+      textarea {
+        font-family: inherit;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 0;
+      }
+      button,
+      select {
+        text-transform: none;
+      }
+      button,
+      [type="button"],
+      [type="reset"],
+      [type="submit"] {
+        -webkit-appearance: button;
+      }
+      button::-moz-focus-inner,
+      [type="button"]::-moz-focus-inner,
+      [type="reset"]::-moz-focus-inner,
+      [type="submit"]::-moz-focus-inner {
+        border-style: none;
+        padding: 0;
+      }
+      button:-moz-focus,
+      [type="button"]:-moz-focus,
+      [type="reset"]:-moz-focus,
+      [type="submit"]:-moz-focus {
+        outline: 1px dotted ButtonText;
+      }
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+      input {
+        padding: 2px 4px;
+      }
+      img {
+        display: block;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: Inter;
+        font-size: 16px;
+      }
+
+      body {
+        font-weight: 400;
+        font-style: normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-theme-neutral-dark);
+        background-color: var(--dl-color-theme-neutral-light);
+
+        fill: var(--dl-color-theme-neutral-dark);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/animate.css@4.1.1/animate.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
+    />
+  </head>
+  <body>
+    <link rel="stylesheet" href="../static/style.css" />
+    <div>
+      <link href="../static/index.css" rel="stylesheet" />
+
+      <div class="home-container">
+        <header class="navbar1-container">
+          <header data-thq="thq-navbar" class="navbar1-navbar-interactive">
+            <img
+              alt="logo"
+              src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/84ec08e8-34e9-42c7-9445-d2806d156403/fac575ac-7a41-484f-b7ac-875042de11f8?org_if_sml=1&amp;force_format=original"
+              class="navbar1-image1"
+            />
+            <div data-thq="thq-navbar-nav" class="navbar1-desktop-menu">
+              <nav class="navbar1-links">
+                <span class="thq-body-small thq-link"><span>Home</span></span>
+                <span class="thq-body-small thq-link">
+                  <span>Report Incident</span>
+                </span>
+                <span class="thq-body-small thq-link">
+                  <span>Public Dashboard</span>
+                </span>
+                <span class="thq-body-small thq-link">
+                  <span>Contact Us</span>
+                </span>
+              
+              </nav>
+              <div class="navbar1-buttons">
+                <button
+                  class="navbar1-action1 thq-button-animated thq-button-filled"
+                >
+                  <span class="thq-body-small"><a href="{{ url_for('register') }}">Register</a></span>
+                </button>
+                <button
+                  class="navbar1-action2 thq-button-outline thq-button-animated"
+                >
+                  <span class="thq-body-small">Action 2</span>
+                </button>
+              </div>
+            </div>
+            <div data-thq="thq-burger-menu" class="navbar1-burger-menu">
+              <svg viewBox="0 0 1024 1024" class="navbar1-icon">
+                <path
+                  d="M128 554.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 298.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 810.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
+                ></path>
+              </svg>
+            </div>
+            <div data-thq="thq-mobile-menu" class="navbar1-mobile-menu">
+              <div class="navbar1-nav">
+                <div class="navbar1-top">
+                  <img
+                    alt="logo"
+                    src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/84ec08e8-34e9-42c7-9445-d2806d156403/fac575ac-7a41-484f-b7ac-875042de11f8?org_if_sml=1&amp;force_format=original"
+                    class="navbar1-logo"
+                  />
+                  <div data-thq="thq-close-menu" class="navbar1-close-menu">
+                    <svg viewBox="0 0 1024 1024" class="navbar1-icon02">
+                      <path
+                        d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+                <nav class="navbar1-links1">
+                  <span class="thq-body-small thq-link"><span>Home</span></span>
+                  <span class="thq-body-small thq-link">
+                    <span>Report Incident</span>
+                  </span>
+                  <span class="thq-body-small thq-link">
+                    <span>Public Dashboard</span>
+                  </span>
+                  <span class="thq-body-small thq-link">
+                    <span>Contact Us</span>
+                  </span>
+                </nav>
+                <div class="navbar1-buttons1">
+                  <button class="thq-button-filled">
+                    <span>Action 1</span>
+                  </button>
+                  <button class="thq-button-outline">
+                    <span>Action 2</span>
+                  </button>
+                </div>
+              </div>
+              <div class="navbar1-icon-group">
+                <svg
+                  viewBox="0 0 950.8571428571428 1024"
+                  class="thq-icon-x-small"
+                >
+                  <path
+                    d="M925.714 233.143c-25.143 36.571-56.571 69.143-92.571 95.429 0.571 8 0.571 16 0.571 24 0 244-185.714 525.143-525.143 525.143-104.571 0-201.714-30.286-283.429-82.857 14.857 1.714 29.143 2.286 44.571 2.286 86.286 0 165.714-29.143 229.143-78.857-81.143-1.714-149.143-54.857-172.571-128 11.429 1.714 22.857 2.857 34.857 2.857 16.571 0 33.143-2.286 48.571-6.286-84.571-17.143-148-91.429-148-181.143v-2.286c24.571 13.714 53.143 22.286 83.429 23.429-49.714-33.143-82.286-89.714-82.286-153.714 0-34.286 9.143-65.714 25.143-93.143 90.857 112 227.429 185.143 380.571 193.143-2.857-13.714-4.571-28-4.571-42.286 0-101.714 82.286-184.571 184.571-184.571 53.143 0 101.143 22.286 134.857 58.286 41.714-8 81.714-23.429 117.143-44.571-13.714 42.857-42.857 78.857-81.143 101.714 37.143-4 73.143-14.286 106.286-28.571z"
+                  ></path></svg
+                ><svg
+                  viewBox="0 0 877.7142857142857 1024"
+                  class="thq-icon-x-small"
+                >
+                  <path
+                    d="M585.143 512c0-80.571-65.714-146.286-146.286-146.286s-146.286 65.714-146.286 146.286 65.714 146.286 146.286 146.286 146.286-65.714 146.286-146.286zM664 512c0 124.571-100.571 225.143-225.143 225.143s-225.143-100.571-225.143-225.143 100.571-225.143 225.143-225.143 225.143 100.571 225.143 225.143zM725.714 277.714c0 29.143-23.429 52.571-52.571 52.571s-52.571-23.429-52.571-52.571 23.429-52.571 52.571-52.571 52.571 23.429 52.571 52.571zM438.857 152c-64 0-201.143-5.143-258.857 17.714-20 8-34.857 17.714-50.286 33.143s-25.143 30.286-33.143 50.286c-22.857 57.714-17.714 194.857-17.714 258.857s-5.143 201.143 17.714 258.857c8 20 17.714 34.857 33.143 50.286s30.286 25.143 50.286 33.143c57.714 22.857 194.857 17.714 258.857 17.714s201.143 5.143 258.857-17.714c20-8 34.857-17.714 50.286-33.143s25.143-30.286 33.143-50.286c22.857-57.714 17.714-194.857 17.714-258.857s5.143-201.143-17.714-258.857c-8-20-17.714-34.857-33.143-50.286s-30.286-25.143-50.286-33.143c-57.714-22.857-194.857-17.714-258.857-17.714zM877.714 512c0 60.571 0.571 120.571-2.857 181.143-3.429 70.286-19.429 132.571-70.857 184s-113.714 67.429-184 70.857c-60.571 3.429-120.571 2.857-181.143 2.857s-120.571 0.571-181.143-2.857c-70.286-3.429-132.571-19.429-184-70.857s-67.429-113.714-70.857-184c-3.429-60.571-2.857-120.571-2.857-181.143s-0.571-120.571 2.857-181.143c3.429-70.286 19.429-132.571 70.857-184s113.714-67.429 184-70.857c60.571-3.429 120.571-2.857 181.143-2.857s120.571-0.571 181.143 2.857c70.286 3.429 132.571 19.429 184 70.857s67.429 113.714 70.857 184c3.429 60.571 2.857 120.571 2.857 181.143z"
+                  ></path></svg
+                ><svg
+                  viewBox="0 0 602.2582857142856 1024"
+                  class="thq-icon-x-small"
+                >
+                  <path
+                    d="M548 6.857v150.857h-89.714c-70.286 0-83.429 33.714-83.429 82.286v108h167.429l-22.286 169.143h-145.143v433.714h-174.857v-433.714h-145.714v-169.143h145.714v-124.571c0-144.571 88.571-223.429 217.714-223.429 61.714 0 114.857 4.571 130.286 6.857z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+          </header>
+        </header>
+        <div class="hero9-header30 thq-section-padding hero9-root-class-name">
+          <img
+            alt="Incident Reporting"
+            src="https://images.unsplash.com/photo-1712935303280-c9bad9e09427?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTcxOTA0NDg2NXw&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1080"
+            class="hero9-image"
+          />
+          <div class="hero9-container"></div>
+          <div class="hero9-max-width thq-section-max-width">
+            <div class="hero9-content">
+              <h1 class="hero9-text thq-heading-1">
+                <span>Report Incidents</span>
+              </h1>
+              <p class="hero9-text1 thq-body-large">
+                <span>
+                  Create a safe environment by reporting incidents that occur in
+                  the workplace.
+                </span>
+              </p>
+              <div class="hero9-actions">
+                <!-- --------------- -->
+                <!-- login button -->
+                <button class="thq-button-filled hero9-button">
+                  <span class="hero9-text2 thq-body-small">
+                    <span><a href="{{ url_for('login') }}">Login</a></span>
+                  </span>
+                </button>
+                <!-- registration button  -->
+                <button class="thq-button-outline hero9-button1">
+                  <span class="hero9-text3 thq-body-small">
+                    <span
+                      ><a href="{{ url_for('register') }}">Register</a></span
+                    >
+                  </span>
+                </button>
+                <!-- -------------- -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="features1-layout251 thq-section-padding">
+          <div class="features1-max-width thq-section-max-width">
+            <div class="thq-flex-row features1-section-title">
+              <div class="features1-column thq-flex-column">
+                <span class="thq-body-small">
+                  <span>
+                    Empowering employees to report incidents and drive change.
+                  </span>
+                </span>
+                <h2 class="thq-heading-2 features1-text1">
+                  <span>Features</span>
+                </h2>
+              </div>
+              <span class="thq-body-small">
+                <span>
+                  Explore the key features of our incident reporting platform.
+                </span>
+              </span>
+            </div>
+            <div class="features1-content">
+              <div class="features1-row thq-flex-row">
+                <div class="features1-feature1 thq-flex-column">
+                  <img
+                    alt="Secure Incident Reporting Image"
+                    src="https://images.unsplash.com/photo-1619410283995-43d9134e7656?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDEzfHxQcm9ncmFtbWluZ3xlbnwwfHx8fDE3MTkwNDU2NjJ8MA&amp;ixlib=rb-4.0.3&amp;w=1400"
+                    class="thq-img-ratio-4-3 features1-feature1-image"
+                  />
+                  <div class="features1-content1 thq-flex-column">
+                    <h3 class="thq-heading-3">
+                      <span>Secure Incident Reporting</span>
+                    </h3>
+                    <span class="thq-body-small">
+                      <span>
+                        Employees can securely report incidents they face during
+                        work hours, ensuring confidentiality and privacy.
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div class="features1-feature2 thq-flex-column">
+                  <img
+                    alt="Public Dashboard Image"
+                    src="https://images.unsplash.com/photo-1589149098258-3e9102cd63d3?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE2fHxQcm9ncmFtbWluZ3xlbnwwfHx8fDE3MTkwNDU2NjJ8MA&amp;ixlib=rb-4.0.3&amp;h=300"
+                    class="thq-img-ratio-4-3 features1-feature2-image"
+                  />
+                  <div class="features1-content2 thq-flex-column">
+                    <h3 class="thq-heading-3"><span>Public Dashboard</span></h3>
+                    <span class="thq-body-small">
+                      <span>
+                        All reported incidents are displayed on a public
+                        dashboard for transparency and awareness among
+                        employees.
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div class="features1-feature3 thq-flex-column">
+                  <img
+                    alt="Efficient Incident Response Image"
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE1fHxyZXBvcnR8ZW58MHx8fHwxNzE5MDQ1NzE5fDA&amp;ixlib=rb-4.0.3&amp;h=300"
+                    class="thq-img-ratio-4-3 features1-feature3-image"
+                  />
+                  <div class="features1-content3 thq-flex-column">
+                    <h3 class="thq-heading-3">
+                      <span>Efficient Incident Response</span>
+                    </h3>
+                    <span class="thq-body-small">
+                      <span>
+                        Facilitates prompt responses to reported incidents,
+                        enabling quick resolution and follow-up actions.
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="features1-actions">
+              <button class="thq-button-filled features1-button">
+                <span class="thq-body-small"><span>Report Incident</span></span>
+              </button>
+              <button class="thq-button-outline features1-button1">
+                <span class="thq-body-small">
+                  <span>View Public Dashboard</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="contact3-contact20 thq-section-padding">
+          <div class="contact3-max-width thq-section-max-width">
+            <div class="contact3-section-title">
+              <span class="thq-body-small">
+                <span>Get in touch with us today!</span>
+              </span>
+              <div class="contact3-content">
+                <h2 class="thq-heading-2"><span>Contact Us</span></h2>
+                <p class="contact3-text2 thq-body-large">
+                  <span>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div class="contact3-row">
+              <div class="contact3-content1">
+                <svg viewBox="0 0 1024 1024" class="thq-icon-medium">
+                  <path
+                    d="M854 342v-86l-342 214-342-214v86l342 212zM854 170q34 0 59 26t25 60v512q0 34-25 60t-59 26h-684q-34 0-59-26t-25-60v-512q0-34 25-60t59-26h684z"
+                  ></path>
+                </svg>
+                <div class="contact3-contact-info">
+                  <div class="contact3-content2">
+                    <h3 class="contact3-text3 thq-heading-3">Email</h3>
+                    <p class="contact3-text4 thq-body-large">
+                      <span>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Suspendisse varius enim in ero.
+                      </span>
+                    </p>
+                  </div>
+                  <span class="contact3-email thq-body-small">
+                    <span>contact@company.com</span>
+                  </span>
+                </div>
+              </div>
+              <div class="contact3-content3">
+                <svg viewBox="0 0 1024 1024" class="thq-icon-medium">
+                  <path
+                    d="M282 460q96 186 282 282l94-94q20-20 44-10 72 24 152 24 18 0 30 12t12 30v150q0 18-12 30t-30 12q-300 0-513-213t-213-513q0-18 12-30t30-12h150q18 0 30 12t12 30q0 80 24 152 8 26-10 44z"
+                  ></path>
+                </svg>
+                <div class="contact3-contact-info1">
+                  <div class="contact3-content4">
+                    <h3 class="contact3-text5 thq-heading-3">Phone</h3>
+                    <p class="contact3-text6 thq-body-large">
+                      <span>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Suspendisse varius enim in ero.
+                      </span>
+                    </p>
+                  </div>
+                  <span class="contact3-phone thq-body-small">
+                    <span>+123-456-7890</span>
+                  </span>
+                </div>
+              </div>
+              <div class="contact3-content5">
+                <svg viewBox="0 0 1024 1024" class="thq-icon-medium">
+                  <path
+                    d="M512 0c-176.732 0-320 143.268-320 320 0 320 320 704 320 704s320-384 320-704c0-176.732-143.27-320-320-320zM512 512c-106.040 0-192-85.96-192-192s85.96-192 192-192 192 85.96 192 192-85.96 192-192 192z"
+                  ></path>
+                </svg>
+                <div class="contact3-contact-info2">
+                  <div class="contact3-content6">
+                    <h3 class="contact3-text7 thq-heading-3">Office</h3>
+                    <p class="contact3-text8 thq-body-large">
+                      <span>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Suspendisse varius enim in ero.
+                      </span>
+                    </p>
+                  </div>
+                  <span class="contact3-address thq-body-small">
+                    <span>123 Company Way, Corporate City, State, 12345</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="banner1-container thq-section-padding">
+          <div class="banner1-max-width thq-section-max-width">
+            <div class="banner1-container1">
+              <h2 class="banner1-title thq-heading-2">
+                <span>Empower Your Employees to Report Incidents</span>
+              </h2>
+              <h3 class="banner1-text thq-heading-3">
+                <span>
+                  Create a safe workplace environment by encouraging your
+                  employees to report incidents through our platform.
+                </span>
+              </h3>
+            </div>
+            <button type="button" class="thq-button-filled">
+              <span>Get Started</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      defer=""
+      src="https://unpkg.com/@teleporthq/teleport-custom-scripts"
+    ></script>
+  </body>
+</html>

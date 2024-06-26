@@ -1,0 +1,24 @@
+.actions-actions {
+  gap: var(--dl-space-space-oneandhalfunits);
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+}
+.actions-action1 {
+  text-align: center;
+}
+.actions-action2 {
+  text-align: center;
+}
+@media(max-width: 479px) {
+  .actions-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .actions-button {
+    width: 100%;
+  }
+  .actions-button1 {
+    width: 100%;
+  }
+}
