@@ -21,11 +21,11 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-
 db = SQLAlchemy(app)
 mail = Mail(app)
 
 
+# Define User and Incident models
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -38,6 +38,14 @@ class Incident(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(50), default="Reported")
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_email = db.Column(db.String(150), nullable=False)
+
+    def __init__(self, title, description, user_id):
+        self.title = title
+        self.description = description
+        self.user_id = user_id
+        self.user_email = User.query.filter_by(id=user_id).first().email
 
 
 # HOME PAGE
@@ -179,12 +187,36 @@ def page_not_found(e):
     return render_template("404.html", is_logged_in=is_logged_in), 404
 
 
-# incident report
-@app.route("/incident-report")
+# INCIDENT REPORT PAGE
+# @app.route("/incident-report")
+# def incident_report():
+#     if "user_id" not in session:
+#         flash("Please login to access this page.", "warning")
+#         return redirect(url_for("home"))
+
+#     return render_template("incident-report.html")
+
+
+@app.route("/incident-report", methods=["GET", "POST"])
 def incident_report():
     if "user_id" not in session:
         flash("Please login to access this page.", "warning")
-        return redirect(url_for("home"))
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        title = request.form["title"]
+        description = request.form["description"]
+        user_id = session["user_id"]
+
+        new_incident = Incident(title=title, description=description, user_id=user_id)
+
+        try:
+            db.session.add(new_incident)
+            db.session.commit()
+            flash("Incident reported successfully!", "success")
+            return redirect(url_for("dashboard"))
+        except Exception as e:
+            flash(f"Failed to report incident: {str(e)}", "danger")
 
     return render_template("incident-report.html")
 
