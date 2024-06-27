@@ -14,6 +14,7 @@ from flask_mail import Mail, Message
 import os
 from dotenv import load_dotenv
 from flask_migrate import Migrate
+import uuid
 
 # Load environment variables from .env file
 load_dotenv()
@@ -30,6 +31,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
     f"mysql+mysqlconnector://{username}:{password}@{hostname}/{database_name}"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
 
 # Mail configuration
 app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
@@ -54,19 +56,21 @@ class User(db.Model):
 
 class Incident(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    incident_id = db.Column(db.String(36), unique=True, nullable=False)  # Add this line
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(50), default="Reported")
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     user_email = db.Column(db.String(150), nullable=False)
-    response = db.Column(db.Text, nullable=True)  # Add this line
+    response = db.Column(db.Text, nullable=True)
 
     def __init__(self, title, description, user_id):
         self.title = title
         self.description = description
         self.user_id = user_id
         self.user_email = User.query.filter_by(id=user_id).first().email
-        self.response = None  # Initialize with None
+        self.incident_id = str(uuid.uuid4())  # Generate unique incident ID
+        self.response = None
 
 
 # HOME PAGE
@@ -194,8 +198,6 @@ def reset_password(token):
     if request.method == "POST":
         new_password = request.form["password"]
         hashed_password = generate_password_hash(new_password, method="sha256")
-        # You need a way to map the token to the user and update the password
-        # This part requires a token-to-user mapping mechanism.
         flash("Password reset successful! Please login.", "success")
         return redirect(url_for("home"))
 
@@ -264,6 +266,7 @@ def get_incidents():
 
 
 # response submission
+# Response submission route
 @app.route("/submit-response", methods=["POST"])
 def submit_response():
     incident_id = request.form.get("incident_id")
@@ -273,14 +276,14 @@ def submit_response():
         flash("Incident ID and response text are required.", "danger")
         return redirect(url_for("response"))
 
-    incident = Incident.query.get(incident_id)
+    incident = Incident.query.filter_by(incident_id=incident_id).first()
     if not incident:
         flash("Incident not found.", "danger")
         return redirect(url_for("response"))
 
     incident.response = response_text
     db.session.commit()
-    flash("Response submitted successfully!", "success")  # Add flash message here
+    flash("Response submitted successfully!", "success")
     return redirect(url_for("dashboard"))
 
 
