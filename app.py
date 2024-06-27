@@ -1,4 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import (
+    Flask,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    flash,
+    session,
+    jsonify,
+)
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
@@ -218,6 +227,27 @@ def response():
         flash("Please login to access this page.", "warning")
         return redirect(url_for("home"))
     return render_template("response.html")
+
+
+# JSON
+@app.route("/api/incidents")
+def get_incidents():
+    if "user_id" not in session:
+        return jsonify({"error": "Unauthorized access"}), 401
+
+    incidents = Incident.query.filter_by(user_id=session["user_id"]).all()
+    incidents_data = [
+        {
+            "id": incident.id,
+            "title": incident.title,
+            "description": incident.description,
+            "status": incident.status,
+            "user_id": incident.user_id,
+            "user_email": incident.user_email,
+        }
+        for incident in incidents
+    ]
+    return jsonify(incidents_data)
 
 
 if __name__ == "__main__":
