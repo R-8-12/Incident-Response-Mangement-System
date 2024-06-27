@@ -8,6 +8,7 @@ from flask import (
     session,
     jsonify,
 )
+import logging
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
@@ -259,14 +260,13 @@ def get_incidents():
             "status": incident.status,
             "user_id": incident.user_id,
             "user_email": incident.user_email,
+            "incident_id": incident.incident_id,
         }
         for incident in incidents
     ]
     return jsonify(incidents_data)
 
 
-# response submission
-# Response submission route
 @app.route("/submit-response", methods=["POST"])
 def submit_response():
     incident_id = request.form.get("incident_id")
@@ -276,15 +276,26 @@ def submit_response():
         flash("Incident ID and response text are required.", "danger")
         return redirect(url_for("response"))
 
-    incident = Incident.query.filter_by(incident_id=incident_id).first()
-    if not incident:
-        flash("Incident not found.", "danger")
+    try:
+        # Find the incident by incident_id
+        incident = Incident.query.filter_by(incident_id=incident_id).first()
+
+        if not incident:
+            flash(f"Incident not found for ID: {incident_id}", "danger")
+            return redirect(url_for("response"))
+
+        # Assign response_text to incident.response
+        incident.response = response_text
+
+        # Commit the changes to the database
+        db.session.commit()
+        flash("Response submitted successfully!", "success")
         return redirect(url_for("response"))
 
-    incident.response = response_text
-    db.session.commit()
-    flash("Response submitted successfully!", "success")
-    return redirect(url_for("dashboard"))
+    except Exception as e:
+        flash(f"Failed to submit response: {str(e)}", "danger")
+        app.logger.error(f"Error submitting response: {str(e)}")
+        return redirect(url_for("response"))
 
 
 if __name__ == "__main__":
