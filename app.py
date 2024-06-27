@@ -8,7 +8,6 @@ from flask import (
     session,
     jsonify,
 )
-import logging
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
@@ -16,6 +15,7 @@ import os
 from dotenv import load_dotenv
 from flask_migrate import Migrate
 import uuid
+from flask import jsonify
 
 # Load environment variables from .env file
 load_dotenv()
@@ -133,9 +133,13 @@ def report():
 # LOGOUT
 @app.route("/logout")
 def logout():
-    session.pop("user_id", None)
-    flash("Logged out successfully.", "info")
-    return redirect(url_for("home"))
+    try:
+        session.pop("user_id", None)
+        flash("Logged out successfully.", "info")
+        return jsonify({"message": "Logged out successfully."}), 200
+    except Exception as e:
+        app.logger.error(f"Error logging out: {str(e)}")
+        return jsonify({"error": "Failed to logout."}), 500
 
 
 # REGISTRATION

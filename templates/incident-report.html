@@ -156,15 +156,10 @@
                 </span>
               </nav>
               <div class="navbar13-buttons">
-                <button
+                <button id="logoutBtn"
                   class="navbar13-action1 thq-button-animated thq-button-filled"
                 >
-                  <span class="thq-body-small">Action 1</span>
-                </button>
-                <button
-                  class="navbar13-action2 thq-button-outline thq-button-animated"
-                >
-                  <span class="thq-body-small">Action 2</span>
+                  <span class="thq-body-small">Logout</span>
                 </button>
               </div>
             </div>
@@ -250,16 +245,8 @@
             />
             <div class="contact-form3-content thq-flex-column">
               <div class="contact-form3-section-title thq-card">
-                <span class="thq-body-small">
-                  <span>Get in touch with us</span>
-                </span>
                 <div class="contact-form3-content1">
-                  <h2 class="thq-heading-2"><span>Contact us</span></h2>
-                  <span class="thq-body-small">
-                    <span>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </span>
-                  </span>
+                  <h2 class="thq-heading-2"><span>Report an Incident</span></h2>
                 </div>
               </div>
               <!-- ================= -->
@@ -270,26 +257,26 @@
               >
                 <div class="contact-form3-input">
                   <label for="contact-form-3-name" class="thq-body-small"
-                    >Name</label
+                    >Incident Title</label
                   >
                   <input
                     type="text"
                     id="contact-form-3-name"
                     name="title"
-                    placeholder="Name"
+                    placeholder="Your Incident Title"
                     class="thq-input"
                     required
                   />
                 </div>
                 <div class="contact-form3-container">
                   <label for="contact-form-3-message" class="thq-body-small"
-                    >Message</label
+                    >Descibe your Incident</label
                   >
                   <textarea
                     id="contact-form-3-message"
                     name="description"
                     rows="3"
-                    placeholder="Enter your message"
+                    placeholder="Descibe your Incident"
                     class="thq-input"
                     required
                   ></textarea>
@@ -325,5 +312,6 @@
       defer=""
       src="https://unpkg.com/@teleporthq/teleport-custom-scripts"
     ></script>
+    <script src="../static/JS/logout.js"></script>
   </body>
 </html>
