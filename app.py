@@ -13,6 +13,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
 import os
 from dotenv import load_dotenv
+from flask_migrate import Migrate
 
 # Load environment variables from .env file
 load_dotenv()
@@ -30,8 +31,17 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
+# Mail configuration
+app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
+app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT"))
+app.config["MAIL_USE_TLS"] = os.getenv("MAIL_USE_TLS") == "True"
+app.config["MAIL_USE_SSL"] = os.getenv("MAIL_USE_SSL") == "True"
+app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
+app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
+
 db = SQLAlchemy(app)
 mail = Mail(app)
+migrate = Migrate(app, db)
 
 
 # Define User and Incident models
@@ -49,12 +59,14 @@ class Incident(db.Model):
     status = db.Column(db.String(50), default="Reported")
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     user_email = db.Column(db.String(150), nullable=False)
+    response = db.Column(db.Text, nullable=True)  # Add this line
 
     def __init__(self, title, description, user_id):
         self.title = title
         self.description = description
         self.user_id = user_id
         self.user_email = User.query.filter_by(id=user_id).first().email
+        self.response = None  # Initialize with None
 
 
 # HOME PAGE
@@ -103,7 +115,8 @@ def report():
     if request.method == "POST":
         title = request.form["title"]
         description = request.form["description"]
-        incident = Incident(title=title, description=description)
+        user_id = session["user_id"]
+        incident = Incident(title=title, description=description, user_id=user_id)
         db.session.add(incident)
         db.session.commit()
         flash("Incident reported successfully!", "success")
@@ -229,7 +242,7 @@ def response():
     return render_template("response.html")
 
 
-# JSON
+# JSON:dynamic Card
 @app.route("/api/incidents")
 def get_incidents():
     if "user_id" not in session:
@@ -248,6 +261,27 @@ def get_incidents():
         for incident in incidents
     ]
     return jsonify(incidents_data)
+
+
+# response submission
+@app.route("/submit-response", methods=["POST"])
+def submit_response():
+    incident_id = request.form.get("incident_id")
+    response_text = request.form.get("response")
+
+    if not incident_id or not response_text:
+        flash("Incident ID and response text are required.", "danger")
+        return redirect(url_for("response"))
+
+    incident = Incident.query.get(incident_id)
+    if not incident:
+        flash("Incident not found.", "danger")
+        return redirect(url_for("response"))
+
+    incident.response = response_text
+    db.session.commit()
+    flash("Response submitted successfully!", "success")  # Add flash message here
+    return redirect(url_for("dashboard"))
 
 
 if __name__ == "__main__":
