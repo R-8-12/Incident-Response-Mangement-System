@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Incident Responses</title>
+    <link rel="stylesheet" href="../static/response.css" />
+    <link rel="stylesheet" href="../static/modal.css" />
+  </head>
+  <body>
+    <header>
+      <h1 id="title">Incident Responses</h1>
+    </header>
+    <main>
+      <section class="articles" id="incident-cards">
+        <!-- Cards will be generated here dynamically -->
+      </section>
+    </main>
+
+    <!-- Modal Structure -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="wrapper">
+          <div class="title"><span>Respond to Incident</span></div>
+          <form action="#">
+            <div class="row">
+              <i class="fas fa-info-circle"></i>
+              <textarea id="incident-description" readonly></textarea>
+            </div>
+            <div class="row">
+              <i class="fas fa-reply"></i>
+              <input type="text" placeholder="Your Response" required />
+            </div>
+            <div class="row button">
+              <input type="submit" value="Submit Response" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="../static/dynamicCard.js"></script>
+    <script src="../static/modal.js"></script>
+  </body>
+</html>
