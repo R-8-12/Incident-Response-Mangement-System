@@ -59,12 +59,12 @@ article a {
   color: #ff2770;
   outline: none;
   border: none;
+  margin-top: 10px;
 }
 
 article a:focus {
   border: none;
   outline: none;
-  color: #45f3ff;
 }
 article a:hover {
   color: #45f3ff;
@@ -107,9 +107,12 @@ body {
   font-size: 1.2rem;
   line-height: 1.6rem;
   background: #191818;
+
   min-height: 100vh;
 }
-
+.blurWindow {
+  filter: blur(3px);
+}
 .articles {
   display: grid;
   max-width: 1200px;
