@@ -187,16 +187,6 @@ def page_not_found(e):
     return render_template("404.html", is_logged_in=is_logged_in), 404
 
 
-# INCIDENT REPORT PAGE
-# @app.route("/incident-report")
-# def incident_report():
-#     if "user_id" not in session:
-#         flash("Please login to access this page.", "warning")
-#         return redirect(url_for("home"))
-
-#     return render_template("incident-report.html")
-
-
 @app.route("/incident-report", methods=["GET", "POST"])
 def incident_report():
     if "user_id" not in session:
@@ -219,6 +209,15 @@ def incident_report():
             flash(f"Failed to report incident: {str(e)}", "danger")
 
     return render_template("incident-report.html")
+
+
+# response page
+@app.route("/response")
+def response():
+    if "user_id" not in session:
+        flash("Please login to access this page.", "warning")
+        return redirect(url_for("home"))
+    return render_template("response.html")
 
 
 if __name__ == "__main__":

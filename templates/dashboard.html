@@ -262,11 +262,17 @@
                   </a>
                 </button>
                 <!-- Inside your dashboard.html file -->
-                <button class="thq-button-outline actions-button1">
-                  <span class="actions-action2 thq-body-small">
-                    <span>Respone to my incident</span>
-                  </span>
+                <button class="thq-button-filled actions-button">
+                  <a
+                    href="{{ url_for('response') }}"
+                    style="text-decoration: none; color: inherit"
+                  >
+                    <span class="actions-action1 thq-body-small">
+                      <span>Respond to my incident</span>
+                    </span>
+                  </a>
                 </button>
+                <!-- Inside your dashboard.html file -->
               </div>
               <div class="cta11-container thq-section-padding">
                 <div class="cta11-max-width thq-section-max-width">
