@@ -1,74 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Registration Form</title>
-    <link
-      rel="stylesheet"
-      href="../static/CSS/registrationForm1.css"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <div class="form registration">
-        <header>Signup</header>
-
-        <!-- Flash Messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %} {% if
-        messages %} {% for category, message in messages %}
-        <div id="alert-msg" class="alert alert-{{ category }}">
-          {{ message }}
-        </div>
-        {% endfor %} {% endif %} {% endwith %}
-
-        <!-- Registration Form -->
-        <form action="{{ url_for('register') }}" method="POST">
-          <input
-            type="text"
-            name="username"
-            placeholder="Enter your username"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Create a password"
-            required
-          />
-          <input
-            type="password"
-            name="confirm_password"
-            placeholder="Confirm your password"
-            required
-          />
-          <input type="submit" class="button" value="Signup" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta http-equiv="X-UA-Compatible" content="ie=edge" />-->
+    <title>Create an Account.</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='registrationForm1.css') }}">
+</head>
+<body>
+    <div class="box">
+        <span class="borderLine"></span>
+        <h2>Register</h2>
+            <form action="{{ url_for('register') }}" method="POST">
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %} {% if
+                messages %} {% for category, message in messages %}
+                <div id="alert-msg" class="alert alert-{{ category }}">
+                {{ message }}
+                </div>
+                {% endfor %} {% endif %} {% endwith %}
+                <!-- Registration Form -->
+            <div class="inputBox">
+                <input type="username"
+                 id="username" 
+                 name="username" 
+                 required>
+                <span>Username</span>
+                <i></i>
+            </div>
+            <div class="inputBox">
+                <input type="email" 
+                id="email" 
+                name="email" required>
+                <span>Email</span>
+                <i></i>
+            </div>
+            <div class="inputBox">
+                <input type="password" id="password" name="password" required>
+                <span>Password</span>
+                <i></i>
+            </div>
+            <div class="inputBox">
+                <input type="password" id="confirm_password" name="confirm_password" required>
+                <span>Confirm Password</span>
+                <i></i>
+            </div>
+            <div class="inputBox">
+                <input type="submit"></input>
+            </div>
+            <div class="links">
+                <!-- <a href="{{url_for('forgot_password')}}">Forget Password</a>-->
+                 <span>Already have an account? 
+                     <a href="{{url_for('login') }}">Login</a>
+                 </span>
+             </div>
         </form>
-
-        <!-- Login Link -->
-        <div class="signup">
-          <span class="signup"
-            >Already have an account?
-            <a href="{{ url_for('login') }}">Login</a></span
-          >
-        </div>
-      </div>
     </div>
     <script>
-      // Remove flash messages after 3 seconds
-      setTimeout(function () {
-        var alertMsg = document.getElementById("alert-msg");
-        if (alertMsg) {
-          alertMsg.remove();
-        }
-      }, 3000);
-    </script>
-  </body>
+        // Remove flash messages after 3 seconds
+        setTimeout(function () {
+          var alertMsg = document.getElementById("alert-msg");
+          if (alertMsg) {
+            alertMsg.remove();
+          }
+        }, 3000);
+      </script>
+</body>
 </html>

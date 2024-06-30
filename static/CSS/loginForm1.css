@@ -1,98 +1,244 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+@import url('http://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',Agency FB;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #23242a;
+}
+.box{
+    position: relative;
+    width: 400px;
+    height: 500px;
+    background: #1c1c1c;
+    border-radius: 8px;
+    overflow: hidden;
+
+}
+.box::before{
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 480px;
+    background: linear-gradient(0deg,transparent,
+    transparent,#45f3ff,#45f3ff,#45f3ff);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation:animate 6s linear infinite;
+}
+.box::after{
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 480px;
+    background: linear-gradient(0deg,transparent,
+    transparent,#45f3ff,#45f3ff,#45f3ff);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation:animate 6s linear infinite;
+    animation-delay: -3s;
+}
+.borderLine
+{
+    position: absolute;
+    top: 0;
+    inset: 0;
+}
+.borderLine::before
+{
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 480px;
+    background: linear-gradient(0deg,transparent,
+    transparent,#ff2770,#ff2770,#ff2770);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation:animate 6s linear infinite;
+    animation-delay: -1.5s;
+}
+.borderLine::after
+{
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 480px;
+    background: linear-gradient(0deg,transparent,
+    transparent,#ff2770,#ff2770,#ff2770);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation:animate 6s linear infinite;
+    animation-delay: -4.5s;
+}
+@keyframes animate
+{
+    0%
+    {
+      transform: rotate(0deg);
+    }
+    100%
+    {
+      transform: rotate(360deg);
+    }
+}
+.box form
+{
+    position: absolute;
+    inset: 4px;
+    background: #222;
+    padding: 50px 40px;
+    border-radius: 8px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+.box form h2
+{
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: none;
+}
+.box form .inputBox
+{
+    position: relative;
+    width: 100%;
+    margin-top: 25px;
+}
+.box form .inputBox input
+{
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: #000000;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+    position: relative;
+    z-index: 1;
+}
+.box form .inputBox span
+{
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #09c083;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
 }
 
-body {
-  min-height: 100vh;
-  width: 100%;
-  background: #009579;
+.box form .inputBox input:valid ~ span,
+.box form .inputBox input:focus ~ span
+{
+    top: 0;
+    color: #fff;
+    transform: translateY(-100%);
+    font-size: 0.75em;
 }
-
-.container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 430px;
-  width: 100%;
-  background: #fff;
-  border-radius: 7px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+.box form .inputBox i
+{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 0;
 }
-
-.container .form {
-  padding: 2rem;
+.box form .inputBox input:valid ~ i,
+.box form .inputBox input:focus ~ i
+{
+    height: 100%;
 }
-
-.form header {
-  font-size: 2rem;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 1.5rem;
+.box form .links
+{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
 }
-
-.form input {
-  height: 60px;
-  width: 100%;
-  padding: 0 15px;
-  font-size: 17px;
-  margin-bottom: 1.3rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  outline: none;
+.box form .links a
+{
+    margin: 10px 0;
+    font-size: 0.75em;
+    text-decoration: none;
 }
-
-.form input:focus {
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+.box form .links a:hover,
+.box form .links a:nth-child(2)
+{
+    color: #ff2770;
 }
-
-.form a {
-  font-size: 16px;
-  color: #009579;
-  text-decoration: none;
+.box form .inputBox input[type="submit"]
+{
+    border: none;
+    outline: none;
+    padding: none;
+    width: 100%;
+    background: #ff2770;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-top: 25px;
 }
-
-.form a:hover {
-  text-decoration: underline;
+.box form .inputBox input[type="submit"]:active
+{
+    opacity: 0.8;
 }
-
-.form input.button {
-  color: #fff;
-  background: #009579;
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  margin-top: 1.7rem;
-  cursor: pointer;
-  transition: 0.4s;
+.box form .inputBox input[type="Submit"]:hover 
+{
+    background: #45f3ff; 
 }
-
-.form input.button:hover {
-  background: #006653;
+.box form .links2
+{
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
 }
-
-.signup {
-  font-size: 17px;
-  text-align: center;
+.box form .links2 a
+{
+    margin: 10px 0;
+    font-size: 0.75em;
+    text-decoration: none;
 }
-
-.signup label {
-  color: #009579;
-  cursor: pointer;
-}
-
-.signup label:hover {
-  text-decoration: underline;
+.box form .links2 a:hover,
+.box form .links2 a:nth-child(2)
+{
+    color: #ff2770;
 }
 
 #alert-msg {
   font-size: 15px;
   text-align: center;
   word-wrap: break-word;
-  margin: 17px;
+  margin: 13px;
 }
 /* CSS for Flash Messages */
 .alert {
