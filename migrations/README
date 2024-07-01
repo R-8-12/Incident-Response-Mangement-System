@@ -1,1 +1,13 @@
 Single-database configuration for Flask.
+After creating the clone, make sure you have a mysql server, python, git bash installed i.e. recognised by the cmd promt.
+Also make sure you have all details like username, password, host, database-name like information that you will uploading to your .env file.
+
+1. Create a new file in main root folder, with name '.env' in that paste the      contents from the sample.env file. Replace the username, password, host, database-name like paameters with actual credentials.
+
+2. Now open the terminal or powershell and write 
+    pip install -r requirements.txt
+    this will install all your module requirements for the projects.
+
+3. Now in terminal with common directory under project name run 
+    'python app.py' to initiate the project.
+
