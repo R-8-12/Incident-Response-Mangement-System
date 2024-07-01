@@ -16,7 +16,11 @@ from dotenv import load_dotenv
 from flask_migrate import Migrate
 import uuid
 from flask import jsonify
-
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from dotenv import load_dotenv
+import datetime
 # Load environment variables from .env file
 load_dotenv()
 
@@ -73,6 +77,27 @@ class Incident(db.Model):
         self.incident_id = str(uuid.uuid4())  # Generate unique incident ID
         self.response = None
 
+def send_email(to_email, subject, body):
+    sender_email = 'warzone20082003@gmail.com'
+    app_password = 'kdyxgzldaizlxydl'
+
+    message = MIMEMultipart()
+    message['From'] = sender_email
+    message['To'] = to_email
+    message['Subject'] = subject
+
+    message.attach(MIMEText(body, 'plain'))
+
+    try:
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+            server.starttls()
+            server.login(sender_email, app_password)
+            server.sendmail(sender_email, to_email, message.as_string())
+        return True
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        return False
+
 
 # HOME PAGE
 @app.route("/")
@@ -90,6 +115,20 @@ def login():
         if user:
             if check_password_hash(user.password, password):
                 session["user_id"] = user.id
+                send_email(
+                    user.email,
+                    f"{username} Logged in On {datetime.datetime.now().strftime('%H:%M %d/%m/%Y')}",
+                    f"""
+                    Hello {user.username},
+
+                    You have successfully logged into the Incident Response Management System! on {datetime.datetime.now().strftime('%H:%M %d/%m/%Y')}
+
+                    If this wasn't you, please secure your account immediately by changing your password.
+
+                    Best regards,
+                    Incident Response Team
+                    """
+                )
                 flash("Logged in successfully!", "success")
                 return redirect(url_for("dashboard"))
             else:
@@ -121,9 +160,12 @@ def report():
         title = request.form["title"]
         description = request.form["description"]
         user_id = session["user_id"]
+
+
         incident = Incident(title=title, description=description, user_id=user_id)
         db.session.add(incident)
         db.session.commit()
+
         flash("Incident reported successfully!", "success")
         return redirect(url_for("dashboard"))
 
@@ -161,6 +203,19 @@ def register():
         try:
             db.session.add(new_user)
             db.session.commit()
+            send_email(email,f"{username} Glad to have you on Incident Reponse Mangement System",
+               f"""
+                    Hello {username},
+                
+                    Welcome to the Incident Response Management System!
+                
+                    Thank you for registering with us. Your account has been created successfully. You can now report and track incidents through our system.
+                
+                    If you have any questions or need assistance, feel free to reply to this email.
+                
+                    Best regards,
+                    Incident Response Team
+                    """)
             flash("Registration successful! Please login.", "success")
             return redirect(url_for("login"))
         except:
@@ -226,6 +281,29 @@ def incident_report():
         title = request.form["title"]
         description = request.form["description"]
         user_id = session["user_id"]
+        user = User.query.filter_by(id=user_id).first()
+        print(user)
+        send_email(user.email,
+                   f"{user.username} Incident Reported at {datetime.datetime.now().strftime('%H:%M %d/%m/%Y')}",
+                   f"""
+                    Hello {user.username},
+
+                    Thank you for reporting the incident. Below are the details of the incident you reported:
+
+                    Title: {title}
+                    Description: {description}
+                    Status: pending
+
+                    We have received your report and our team will review it shortly. You can check the status of your report on your dashboard.
+
+                    If you have any further information or updates regarding this incident, please reply to this email or update the incident through the incident report system.
+
+                    Thank you for your cooperation.
+
+                    Best regards,
+                    Incident Response Team
+                    """
+                   )
 
         new_incident = Incident(title=title, description=description, user_id=user_id)
 
