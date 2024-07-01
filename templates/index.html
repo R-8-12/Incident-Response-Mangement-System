@@ -146,7 +146,7 @@
               <nav class="navbar1-links">
                 <span class="thq-body-small thq-link"><span>Home</span></span>
                 <span class="thq-body-small thq-link">
-                  <span>Report Incident</span>
+                  <span><a href="{{ url_for('login') }}">Report Incident</a></span>
                 </span>
                 <span class="thq-body-small thq-link">
                   <span>Public Dashboard</span>
@@ -251,7 +251,7 @@
           <div class="hero9-max-width thq-section-max-width">
             <div class="hero9-content">
               <h1 class="hero9-text thq-heading-1">
-                <span>Report Incidents</span>
+                <span><a href="{{ url_for('login') }}">Report Incidents</a></span>
               </h1>
               <p class="hero9-text1 thq-body-large">
                 <span>
@@ -264,15 +264,13 @@
                 <!-- login button -->
                 <button class="thq-button-filled hero9-button">
                   <span class="hero9-text2 thq-body-small">
-                    <span><a href="{{ url_for('login') }}">Login</a></span>
+                    <span><a href="{{ url_for('register') }}">Register</a></span>     
                   </span>
                 </button>
                 <!-- registration button  -->
                 <button class="thq-button-outline hero9-button1">
                   <span class="hero9-text3 thq-body-small">
-                    <span
-                      ><a href="{{ url_for('register') }}">Register</a></span
-                    >
+                    <span><a href="{{ url_for('login') }}">Login</a></span>
                   </span>
                 </button>
                 <!-- -------------- -->
@@ -358,7 +356,7 @@
             </div>
             <div class="features1-actions">
               <button class="thq-button-filled features1-button">
-                <span class="thq-body-small"><span>Report Incident</span></span>
+                <span class="thq-body-small"><span><a href="{{ url_for('login') }}">Report Incident</a></span></span>
               </button>
               <button class="thq-button-outline features1-button1">
                 <span class="thq-body-small">
@@ -378,7 +376,9 @@
                 <h2 class="thq-heading-2"><span>Contact Us</span></h2>
                 <p class="contact3-text2 thq-body-large">
                   <span>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Given below are some accesses to us, in case if you've any doubt 
+                    or have to report regarding the services/management. Kindly, help 
+                    us through this efficient Agile process of learning and developing. 
                   </span>
                 </p>
               </div>
@@ -395,13 +395,15 @@
                     <h3 class="contact3-text3 thq-heading-3">Email</h3>
                     <p class="contact3-text4 thq-body-large">
                       <span>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Suspendisse varius enim in ero.
+                          Below are the mail accesses to contact our team coordinators.
                       </span>
                     </p>
                   </div>
                   <span class="contact3-email thq-body-small">
-                    <span>contact@company.com</span>
+                    <span>adityasharma221220@acropolis.in<br>
+                      punitsoni028@gmail.com<br>
+                      aamirali220977@acropolis.in
+                    </span>
                   </span>
                 </div>
               </div>
@@ -416,13 +418,15 @@
                     <h3 class="contact3-text5 thq-heading-3">Phone</h3>
                     <p class="contact3-text6 thq-body-large">
                       <span>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Suspendisse varius enim in ero.
+                        Below are the Phone no.'s to contact our team coordinators.
                       </span>
                     </p>
                   </div>
                   <span class="contact3-phone thq-body-small">
-                    <span>+123-456-7890</span>
+                    <span>+91 834-989-6755<br>
+                      +91 934-041-6816<br>
+                      +91 799-995-8378
+                    </span>
                   </span>
                 </div>
               </div>
@@ -437,13 +441,13 @@
                     <h3 class="contact3-text7 thq-heading-3">Office</h3>
                     <p class="contact3-text8 thq-body-large">
                       <span>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Suspendisse varius enim in ero.
+                        In case of any necessary offline visit you can meet 
+                        us at the given below address.
                       </span>
                     </p>
                   </div>
                   <span class="contact3-address thq-body-small">
-                    <span>123 Company Way, Corporate City, State, 12345</span>
+                    <span>Bypass Road, Square, Manglaya Sadak, Indore, Madhya Pradesh 453771</span>
                   </span>
                 </div>
               </div>
