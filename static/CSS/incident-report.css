@@ -140,8 +140,8 @@
   }
   .contact-form3-image1 {
     flex: 1;
-    width: auto;
-    height: auto;
+    width: 400px;
+    height: 400px;
     max-width: 640px;
     border-radius: var(--dl-radius-radius-radius4);
   }
