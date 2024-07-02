@@ -68,6 +68,7 @@ class Incident(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     user_email = db.Column(db.String(150), nullable=False)
     response = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     def __init__(self, title, description, user_id):
         self.title = title
@@ -76,6 +77,14 @@ class Incident(db.Model):
         self.user_email = User.query.filter_by(id=user_id).first().email
         self.incident_id = str(uuid.uuid4())  # Generate unique incident ID
         self.response = None
+
+class Response(db.Model):
+    response_id = db.Column(db.Integer, primary_key=True)
+    incident_id = db.Column(db.Integer, db.ForeignKey("incident.id"), nullable=False)
+    responded_by = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+
 
 def send_email(to_email, subject, body):
     sender_email = 'aditya.purushottam.kvs@gmail.com'
@@ -144,33 +153,10 @@ def login():
 def dashboard():
     if "user_id" not in session:
         flash("Please login to access this page.", "warning")
-        return redirect(url_for("home"))
+        return redirect(url_for("index"))
 
     incidents = Incident.query.all()
     return render_template("dashboard.html", incidents=incidents)
-
-
-@app.route("/report", methods=["GET", "POST"])
-def report():
-    if "user_id" not in session:
-        flash("Please login to access this page.", "warning")
-        return redirect(url_for("home"))
-
-    if request.method == "POST":
-        title = request.form["title"]
-        description = request.form["description"]
-        user_id = session["user_id"]
-
-
-        incident = Incident(title=title, description=description, user_id=user_id)
-        db.session.add(incident)
-        db.session.commit()
-
-        flash("Incident reported successfully!", "success")
-        return redirect(url_for("dashboard"))
-
-    return render_template("report.html")
-
 
 # LOGOUT
 @app.route("/logout")
@@ -247,7 +233,7 @@ def forgot_password():
         else:
             flash("Email not found. Please register.", "warning")
 
-        return redirect(url_for("home"))
+        return redirect(url_for("index"))
     else:
         return render_template("forget_password.html")
 
@@ -343,6 +329,7 @@ def get_incidents():
             "user_id": incident.user_id,
             "user_email": incident.user_email,
             "incident_id": incident.incident_id,
+            "created_at": incident.created_at
         }
         for incident in incidents
     ]

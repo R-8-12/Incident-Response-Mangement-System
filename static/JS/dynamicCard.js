@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="article-body">
                   <h2>${incident.title}</h2>
                   <p>${incident.description}</p>
+                  <h3>${incident.created_at}</h3>
                   <a href="#" class="response-incident" data-id="${incident.incident_id}">Response Incident</a>
                 </div>
               </div>
