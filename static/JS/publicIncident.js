@@ -55,11 +55,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const filteredIncidents = incidents.filter(
           (incident) => incident.user_id !== currentUserId
         );
-
-        // Display filtered incidents
-        filteredIncidents.forEach((incident) => {
-          const article = document.createElement("article");
-          article.innerHTML = `
+        if (incidents === 0) {
+          // If no incidents, display a message
+          const noIncidentsMessage = document.createElement("div");
+          noIncidentsMessage.className = "noincident";
+          noIncidentsMessage.textContent = "No incidents to display.";
+          incidentCardsContainer.appendChild(noIncidentsMessage);
+        } else {
+          // Display filtered incidents
+          filteredIncidents.forEach((incident) => {
+            const article = document.createElement("article");
+            article.innerHTML = `
               <div class="article-wrapper">
                 <div class="article-body">
                   <h2>${incident.title}</h2>
@@ -71,8 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
                   </div>   
                 </div>
               </div>`;
-          incidentCardsContainer.appendChild(article);
-        });
+            incidentCardsContainer.appendChild(article);
+          });
+        }
 
         attachEventListeners(); // Attach event listeners after incidents are loaded
       })

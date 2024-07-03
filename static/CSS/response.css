@@ -208,3 +208,19 @@ body {
   background-color: #009579;
   font-size: 1.2rem;
 }
+
+.response-description-head {
+  font-weight: bold;
+}
+.response-description p {
+  font-weight: 400;
+}
+
+.noincident {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  color: white;
+}

@@ -1,4 +1,5 @@
 import { fetchResponsesAndLog } from "./responsesviews.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const incidentCardsContainer = document.getElementById("incident-cards");
 
@@ -33,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const blurBackground = document.getElementById("blurSection");
 
     // Call the fetchResponsesAndLog function from responsesviews.js with incidentId
-
     fetchResponsesAndLog(incidentId);
 
     viewModal.style.display = "block";
@@ -48,23 +48,37 @@ document.addEventListener("DOMContentLoaded", () => {
           console.error(incidents.error);
           return;
         }
-        incidents.forEach((incident) => {
-          const article = document.createElement("article");
-          article.innerHTML = `
-            <div class="article-wrapper">
-              <div class="article-body">
-                <h2>${incident.title}</h2>
-                <p>${incident.description}</p>
-                <p class="createdAt">${incident.created_at}</p>
-                <div class="viwe-response-btn"> 
-                  <a href="#" class="response-incident" data-id="${incident.incident_id}">Response Incident</a>
-                  <a href="#" class="view-responses" data-id="${incident.incident_id}">View Responses</a>
-                </div>   
-              </div>
-            </div>`;
-          incidentCardsContainer.appendChild(article);
-        });
-        attachEventListeners(); // Attach event listeners after incidents are loaded
+
+        // Clear existing incidents if any
+        incidentCardsContainer.innerHTML = "";
+
+        if (incidents.length === 0) {
+          // If no incidents, display a message
+          const noIncidentsMessage = document.createElement("div");
+          noIncidentsMessage.className = "noincident";
+          noIncidentsMessage.textContent = "No incidents to display.";
+          incidentCardsContainer.appendChild(noIncidentsMessage);
+        } 
+        else {
+          incidents.forEach((incident) => {
+            const article = document.createElement("article");
+            article.innerHTML = `
+              <div class="article-wrapper">
+                <div class="article-body">
+                  <h2>${incident.title}</h2>
+                  <p>${incident.description}</p>
+                  <p class="createdAt">${incident.created_at}</p>
+                  <div class="viwe-response-btn"> 
+                    <a href="#" class="response-incident" data-id="${incident.incident_id}">Response Incident</a>
+                    <a href="#" class="view-responses" data-id="${incident.incident_id}">View Responses</a>
+                  </div>   
+                </div>
+              </div>`;
+            incidentCardsContainer.appendChild(article);
+          });
+
+          attachEventListeners(); // Attach event listeners after incidents are loaded
+        }
       })
       .catch((error) => console.error("Error fetching incidents:", error));
   }
