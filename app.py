@@ -381,7 +381,6 @@ def submit_response():
         # Commit the changes to the database
         db.session.add(new_response)
         db.session.commit()
-        flash("Response submitted successfully!", "success")
         return redirect(url_for("response"))
 
     except Exception as e:
@@ -390,17 +389,53 @@ def submit_response():
         return redirect(url_for("response"))
 
 
+# all-incident-response route
+@app.route("/submit_responseToPublic", methods=["POST"])
+def submit_responseToPublic():
+    responded_by = session["user_id"]
+    incident_id = request.form.get("incident_id")
+    description = request.form.get("response")
+
+    if not incident_id or not description:
+        flash("Incident ID and response text are required.", "danger")
+        return redirect(url_for("public_incidents"))
+
+    try:
+        # Find the incident by incident_id
+        incident = Incident.query.filter_by(incident_id=incident_id).first()
+        if not incident:
+            flash(f"Incident not found for ID: {incident_id}", "danger")
+            return redirect(url_for("public_incidents"))
+
+        # Get the user details of the responder
+        user = User.query.filter_by(id=responded_by).first()
+
+        # Assign response tuple to response table
+        new_response = Response(
+            incident_id=incident_id,
+            description=description,
+            responded_by=responded_by,
+            responder_email=user.email,  # Save responder's email
+            responder_username=user.username,  # Save responder's username
+        )
+
+        # Commit the changes to the database
+        db.session.add(new_response)
+        db.session.commit()
+        return redirect(url_for("public_incidents"))
+
+    except Exception as e:
+        flash(f"Failed to submit response: {str(e)}", "danger")
+        app.logger.error(f"Error submitting response: {str(e)}")
+        return redirect(url_for("public_incidents"))
+
+
 @app.route("/public_incidents")
 def public_incidents():
     if "user_id" not in session:
         flash("Please login to access this page.", "warning")
         return redirect(url_for("home"))
     return render_template("public_incidents.html")
-
-
-@app.route("/all-responses")
-def all_responses():
-    return render_template("all-responses.html")
 
 
 # Import the necessary modules and classes
@@ -433,6 +468,28 @@ def get_publicIncidents():
     ]
 
     return jsonify(incidents_data)
+
+
+# -----------new-------
+@app.route("/api/responses/<incident_id>")
+def get_responses_by_incident_id(incident_id):
+    if "user_id" not in session:
+        return jsonify({"error": "Unauthorized access"}), 401
+
+    try:
+        responses = Response.query.filter_by(incident_id=incident_id).all()
+        response_data = [
+            {
+                "responder_username": response.responder_username,
+                "description": response.description,
+                "created_at": response.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+            }
+            for response in responses
+        ]
+        return jsonify({"responses": response_data})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":

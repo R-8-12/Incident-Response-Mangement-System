@@ -169,6 +169,7 @@
       <div class="wrapper">
         <div class="login form">
           <header>Views</header>
+          <!-- <input type="hidden" name="incident_id" id="incident-id" value="" /> -->
           <div id="incidentResponses"></div>
           <!-- responses will take place -->
           <div class="navigation-btn">
@@ -176,18 +177,19 @@
             <button id="viewCancelBtn" class="button openBtn" value="Cancel">
               Close
             </button>
-            <button id="next" class="views-navigation-btn">&gt</button>
+            <button id="next" class="views-navigation-btn">&gt;</button>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="../static/JS/myIncident.js"></script>
+    <script type="module" src="../static/JS/myIncident.js"></script>
     <script src="../static/JS/modal.js"></script>
     <script
       defer=""
       src="https://unpkg.com/@teleporthq/teleport-custom-scripts"
     ></script>
     <script src="../static/JS/logout.js"></script>
+    <script type="module" src="../static/JS/responsesviews.js"></script>
   </body>
 </html>

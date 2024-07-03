@@ -1,33 +1,43 @@
+import { fetchResponsesAndLog } from "./responsesviews.js";
 document.addEventListener("DOMContentLoaded", () => {
   const incidentCardsContainer = document.getElementById("incident-cards");
 
   function attachEventListeners() {
     // Event listener for response buttons
     document.querySelectorAll(".response-incident").forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        const modal = document.getElementById("modal");
-        const blurBackground = document.getElementById("blurSection");
-        const incidentIdInput = document.getElementById("incident-id");
-        const incidentId = button.getAttribute("data-id");
-
-        incidentIdInput.value = incidentId;
-        modal.style.display = "block";
-        blurBackground.classList.add("blurWindow");
-      });
+      button.addEventListener("click", handleResponseIncidentButtonClick);
     });
 
     // Event listener for view responses buttons
     document.querySelectorAll(".view-responses").forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        const viewModal = document.getElementById("viewModal");
-        const blurBackground = document.getElementById("blurSection");
-
-        viewModal.style.display = "block";
-        blurBackground.classList.add("blurWindow");
-      });
+      button.addEventListener("click", handleViewResponsesButtonClick);
     });
+  }
+
+  function handleResponseIncidentButtonClick(event) {
+    event.preventDefault();
+    const modal = document.getElementById("modal");
+    const blurBackground = document.getElementById("blurSection");
+    const incidentIdInput = document.getElementById("incident-id");
+    const incidentId = event.target.getAttribute("data-id");
+
+    incidentIdInput.value = incidentId;
+    modal.style.display = "block";
+    blurBackground.classList.add("blurWindow");
+  }
+
+  function handleViewResponsesButtonClick(event) {
+    event.preventDefault();
+    const incidentId = event.target.getAttribute("data-id");
+    const viewModal = document.getElementById("viewModal");
+    const blurBackground = document.getElementById("blurSection");
+
+    // Call the fetchResponsesAndLog function from responsesviews.js with incidentId
+
+    fetchResponsesAndLog(incidentId);
+
+    viewModal.style.display = "block";
+    blurBackground.classList.add("blurWindow");
   }
 
   function fetchIncidentsAndDisplay() {
