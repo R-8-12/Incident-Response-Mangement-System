@@ -14,16 +14,15 @@ article {
   background: #fff;
   transform-origin: center;
   transition: all 0.4s ease-in-out;
-  overflow: hidden;
 }
 
-/* article a::after {
+ article a::after {
   position: absolute;
   inset-block: 0;
   inset-inline: 0;
   cursor: pointer;
   content: "";
-} */
+} 
 
 article h2 {
   margin: 0 0 18px 0;
@@ -38,7 +37,6 @@ figure {
   margin: 0;
   padding: 0;
   aspect-ratio: 16 / 9;
-  overflow: hidden;
 }
 
 article img {
@@ -49,7 +47,17 @@ article img {
 }
 
 .article-body {
-  padding: 24px;
+  padding: 15px;
+  height: auto;
+  width: auto;
+}
+
+.article-body p {
+  display: block;
+  white-space: normal; /* Ensure text wraps within the paragraph */
+  height: auto;
+  overflow: hidden; /* Prevent overflow */
+  word-wrap: break-word; /* Ensure long words break and wrap within the container */
 }
 
 article a {
@@ -72,8 +80,8 @@ article a:hover {
 
 article a .icon {
   min-width: 24px;
-  width: 24px;
-  height: 24px;
+  width: auto;
+  height: auto;
   margin-left: 5px;
   transform: translateX(var(--link-icon-translate));
   opacity: var(--link-icon-opacity);
@@ -126,7 +134,11 @@ body {
     container: card/inline-size;
   }
   .article-body p {
-    display: none;
+    display: list-item;
+    white-space: normal;
+    height: auto;
+    overflow: hidden;
+    word-wrap: break-word;
   }
 }
 
@@ -135,13 +147,15 @@ body {
     display: grid;
     grid-template-columns: 100px 1fr;
     gap: 16px;
+    height: auto;
   }
   .article-body {
     padding-left: 0;
+    overflow: hidden;
   }
   figure {
     width: 100%;
-    height: 100%;
+    height: auto;
     overflow: hidden;
   }
   figure img {
@@ -155,7 +169,6 @@ body {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
   height: 1px;
-  overflow: hidden;
   position: absolute;
   white-space: nowrap;
   width: 1px;
