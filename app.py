@@ -408,22 +408,24 @@ def submit_responseToPublic():
 
         # Get the user details of the responder
         user = User.query.filter_by(id=responded_by).first()
-        send_email(user.email, f"Reponded To Incident Successfully {incident.title}", f"""
-                    Your Respond to Incident Title {incident.title} 
-                    having description {incident.description} 
-                    having been resolved successfully 
+        send_email(user.email, f"Responded To Incident Successfully - {incident.title}", f"""
+                    Your Respond to Incident Title "{incident.title}" 
+                    having description "{incident.description}" 
+                    having been resolved successfully. 
+
+                    Your response is "{description}"
 
                     Thanks You 
-
                     Regards
                     Incident Report System Team
 
         """)
         send_email(incident.user_email, f"Reponded To Your Incident Successfully {incident.title}", f"""
-                            Your Incident Title {incident.title} 
-                            having description {incident.description} 
+                            Your Incident Title "{incident.title}" 
+                            having description "{incident.description}" 
                             having been resolved successfully 
-                            By {user.username}
+                            By "{user.username}"
+                            responded with message "{description}"
                             Thanks You 
                             Regards
                             Incident Report System Team
