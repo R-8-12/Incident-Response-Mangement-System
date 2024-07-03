@@ -17,13 +17,13 @@ article {
   overflow: hidden;
 }
 
-article a::after {
+/* article a::after {
   position: absolute;
   inset-block: 0;
   inset-inline: 0;
   cursor: pointer;
   content: "";
-}
+} */
 
 article h2 {
   margin: 0 0 18px 0;
@@ -165,4 +165,46 @@ body {
   text-align: center;
   margin: 1.3em 0;
   color: white;
+}
+
+.createdAt {
+  font-weight: 600;
+}
+
+.viwe-response-btn,
+.navigation-btn {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.viwe-response-btn a,
+.navigation-btn .views-navigation-btn {
+  font-size: 0.8em;
+}
+
+.navigation-btn .views-navigation-btn {
+  font-weight: bold;
+  font-size: 1.5em;
+  border: none;
+  outline: none;
+  background-color: inherit;
+}
+
+.navigation-btn .views-navigation-btn:hover {
+  color: #ff2770;
+}
+
+.view-close {
+  width: 20px;
+}
+
+.navigation-btn {
+  margin-top: 20px;
+}
+
+#viewCancelBtn {
+  background-color: #009579;
+  font-size: 1.2rem;
 }

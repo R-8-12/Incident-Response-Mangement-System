@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const incidentCardsContainer = document.getElementById("incident-cards");
 
   function attachEventListeners() {
+    // Event listener for response buttons
     document.querySelectorAll(".response-incident").forEach((button) => {
       button.addEventListener("click", (event) => {
         event.preventDefault();
@@ -12,6 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         incidentIdInput.value = incidentId;
         modal.style.display = "block";
+        blurBackground.classList.add("blurWindow");
+      });
+    });
+
+    // Event listener for view responses buttons
+    document.querySelectorAll(".view-responses").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const viewModal = document.getElementById("viewModal");
+        const blurBackground = document.getElementById("blurSection");
+
+        viewModal.style.display = "block";
         blurBackground.classList.add("blurWindow");
       });
     });
@@ -33,9 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="article-body">
                   <h2>${incident.title}</h2>
                   <p>${incident.description}</p>
-                  <h3>${incident.created_at}</h3>
+                  <p class="createdAt">${incident.created_at}</p>
+                  <div class="viwe-response-btn"> 
                   <a href="#" class="response-incident" data-id="${incident.incident_id}">Response Incident</a>
-                  <a href="{{url_for('all-responses')}}" class="response-incident" data-id="${incident.incident_id}">View Responses</a>
+                   <a href="#" class="view-responses" data-id="${incident.incident_id}">view Responses</a>
+                  </div>   
                 </div>
               </div>
             </article>`;
@@ -47,4 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   fetchIncidentsAndDisplay(); // Initial fetch and display on page load
+
+  const incidentResponses = document.getElementById("incidentResponses");
+  function fetchIncidentResponses() {}
+  fetchIncidentResponses();
 });
