@@ -41,19 +41,17 @@ document.addEventListener("DOMContentLoaded", () => {
         incidents.forEach((incident) => {
           const article = document.createElement("article");
           article.innerHTML = `
-            <article>
-              <div class="article-wrapper">
-                <div class="article-body">
-                  <h2>${incident.title}</h2>
-                  <p>${incident.description}</p>
-                  <p class="createdAt">${incident.created_at}</p>
-                  <div class="viwe-response-btn"> 
+            <div class="article-wrapper">
+              <div class="article-body">
+                <h2>${incident.title}</h2>
+                <p>${incident.description}</p>
+                <p class="createdAt">${incident.created_at}</p>
+                <div class="viwe-response-btn"> 
                   <a href="#" class="response-incident" data-id="${incident.incident_id}">Response Incident</a>
-                   <a href="#" class="view-responses" data-id="${incident.incident_id}">view Responses</a>
-                  </div>   
-                </div>
+                  <a href="#" class="view-responses" data-id="${incident.incident_id}">View Responses</a>
+                </div>   
               </div>
-            </article>`;
+            </div>`;
           incidentCardsContainer.appendChild(article);
         });
         attachEventListeners(); // Attach event listeners after incidents are loaded
@@ -62,8 +60,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   fetchIncidentsAndDisplay(); // Initial fetch and display on page load
-
-  const incidentResponses = document.getElementById("incidentResponses");
-  function fetchIncidentResponses() {}
-  fetchIncidentResponses();
 });
