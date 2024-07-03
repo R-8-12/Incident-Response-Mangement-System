@@ -96,9 +96,8 @@ class Response(db.Model):
 
 
 def send_email(to_email, subject, body):
-    sender_email = os.getenv("senderEmail")
-    app_password = os.getenv("appPassword")
-
+    sender_email = 'warzone20082003@gmail.com'
+    app_password = 'kdyxgzldaizlxydl'
     message = MIMEMultipart()
     message["From"] = sender_email
     message["To"] = to_email
@@ -409,6 +408,26 @@ def submit_responseToPublic():
 
         # Get the user details of the responder
         user = User.query.filter_by(id=responded_by).first()
+        send_email(user.email, f"Reponded To Incident Successfully {incident.title}", f"""
+                    Your Respond to Incident Title {incident.title} 
+                    having description {incident.description} 
+                    having been resolved successfully 
+
+                    Thanks You 
+
+                    Regards
+                    Incident Report System Team
+
+        """)
+        send_email(incident.user_email, f"Reponded To Your Incident Successfully {incident.title}", f"""
+                            Your Incident Title {incident.title} 
+                            having description {incident.description} 
+                            having been resolved successfully 
+                            By {user.username}
+                            Thanks You 
+                            Regards
+                            Incident Report System Team
+                """)
 
         # Assign response tuple to response table
         new_response = Response(
