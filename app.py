@@ -396,13 +396,20 @@ def all_responses():
     return render_template("all-responses.html")
 
 
+# Import the necessary modules and classes
+from flask import jsonify, session
+
 @app.route("/api/publicIncidents")
 def get_publicIncidents():
-    # user_id=Incident.query.filter_by(user_id).first().user_id
     if "user_id" not in session:
         return jsonify({"error": "Unauthorized access"}), 401
 
-    incidents = Incident.query.all()
+    current_user_id = session["user_id"]
+
+    # Query incidents excluding those created by the current user
+    incidents = Incident.query.filter(Incident.user_id != current_user_id).all()
+
+    # Construct JSON response
     incidents_data = [
         {
             "id": incident.id,
@@ -416,7 +423,9 @@ def get_publicIncidents():
         }
         for incident in incidents
     ]
+
     return jsonify(incidents_data)
+
 
 
 if __name__ == "__main__":
