@@ -386,6 +386,29 @@ def public_incidents():
 def all_responses():
     return render_template('all-responses.html')
 
+@app.route("/api/publicIncidents")
+def get_publicIncidents():
+    #user_id=Incident.query.filter_by(user_id).first().user_id
+    if "user_id" not in session:
+        return jsonify({"error": "Unauthorized access"}), 401
+
+    incidents = Incident.query.all()
+    incidents_data = [
+        {
+            "id": incident.id,
+            "title": incident.title,
+            "description": incident.description,
+            "status": incident.status,
+            "user_id": incident.user_id,
+            "user_email": incident.user_email,
+            "incident_id": incident.incident_id,
+            "created_at": incident.created_at
+        }
+        for incident in incidents
+    ]
+    return jsonify(incidents_data)
+
+
 
 if __name__ == "__main__":
     with app.app_context():
