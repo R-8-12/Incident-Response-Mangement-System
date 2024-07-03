@@ -279,6 +279,8 @@
                     </span>
                   </a>
                 </button>
+
+                
                 <!-- Inside your dashboard.html file -->
               </div>
               <div class="cta11-container thq-section-padding">
@@ -291,10 +293,17 @@
                         </span>
                       </button>
                       <button class="thq-button-outline cta11-button1">
+                        <a
+                          href="{{ url_for('public_incidents') }}"
+                          style="text-decoration: none; color: inherit"
+                        >
                         <span class="cta11-action2 thq-body-small">
-                          <span>Response to an existing incident</span>
+                          <span>
+                            Response to an existing incident
+                          </span>
                         </span>
-                      </button>
+                        </a>
+                      </button>  
                     </div>
                   </div>
                 </div>

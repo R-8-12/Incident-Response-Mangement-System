@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   <p>${incident.description}</p>
                   <h3>${incident.created_at}</h3>
                   <a href="#" class="response-incident" data-id="${incident.incident_id}">Response Incident</a>
+                  <a href="{{url_for('all-responses')}}" class="response-incident" data-id="${incident.incident_id}">View Responses</a>
                 </div>
               </div>
             </article>`;

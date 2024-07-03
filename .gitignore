@@ -1,1 +1,3 @@
 .env
+git add -f template/public_incidents.html
+

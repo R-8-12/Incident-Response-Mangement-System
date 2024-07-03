@@ -76,15 +76,21 @@ class Incident(db.Model):
         self.user_id = user_id
         self.user_email = User.query.filter_by(id=user_id).first().email
         self.incident_id = str(uuid.uuid4())  # Generate unique incident ID
-        self.response = None
+        #self.response = None
 
 class Response(db.Model):
     response_id = db.Column(db.Integer, primary_key=True)
-    incident_id = db.Column(db.Integer, db.ForeignKey("incident.id"), nullable=False)
+    incident_id = db.Column(db.String(36), db.ForeignKey("incident.incident_id"), nullable=False)
     responded_by = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
+    def __init__(self, incident_id, description, responded_by):
+        self.incident_id = incident_id
+        self.description = description
+        self.responded_by = responded_by
+        #self.user_email = User.query.filter_by(id=user_id).first().email
+        self.response = None
 
 def send_email(to_email, subject, body):
     sender_email = 'aditya.purushottam.kvs@gmail.com'
@@ -338,25 +344,28 @@ def get_incidents():
 
 @app.route("/submit-response", methods=["POST"])
 def submit_response():
+    responded_by =session["user_id"]
     incident_id = request.form.get("incident_id")
-    response_text = request.form.get("response")
+    description = request.form.get("response")
 
-    if not incident_id or not response_text:
+    if not incident_id or not description:
         flash("Incident ID and response text are required.", "danger")
         return redirect(url_for("response"))
 
     try:
         # Find the incident by incident_id
         incident = Incident.query.filter_by(incident_id=incident_id).first()
+        #response = Response.query.filter_by(incident_id=incident_id).first()
 
         if not incident:
             flash(f"Incident not found for ID: {incident_id}", "danger")
             return redirect(url_for("response"))
 
-        # Assign response_text to incident.response
-        incident.response = response_text
+        #Assign response tuple to response table
+        new_response = Response(incident_id=incident_id, description=description, responded_by=responded_by)
 
         # Commit the changes to the database
+        db.session.add(new_response)
         db.session.commit()
         flash("Response submitted successfully!", "success")
         return redirect(url_for("response"))
@@ -365,6 +374,17 @@ def submit_response():
         flash(f"Failed to submit response: {str(e)}", "danger")
         app.logger.error(f"Error submitting response: {str(e)}")
         return redirect(url_for("response"))
+
+@app.route('/public_incidents')
+def public_incidents():
+    if "user_id" not in session:
+        flash("Please login to access this page.", "warning")
+        return redirect(url_for("home"))
+    return render_template('public_incidents.html')
+
+@app.route('/all-responses')
+def all_responses():
+    return render_template('all-responses.html')
 
 
 if __name__ == "__main__":
