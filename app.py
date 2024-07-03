@@ -1,13 +1,4 @@
-from flask import (
-    Flask,
-    render_template,
-    request,
-    redirect,
-    url_for,
-    flash,
-    session,
-    jsonify,
-)
+from flask import *
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
@@ -15,12 +6,11 @@ import os
 from dotenv import load_dotenv
 from flask_migrate import Migrate
 import uuid
-from flask import jsonify
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from dotenv import load_dotenv
 import datetime
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -40,7 +30,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Mail configuration
 app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
-app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT",587))
+app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT", 587))
 app.config["MAIL_USE_TLS"] = os.getenv("MAIL_USE_TLS") == "True"
 app.config["MAIL_USE_SSL"] = os.getenv("MAIL_USE_SSL") == "True"
 app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
@@ -76,35 +66,48 @@ class Incident(db.Model):
         self.user_id = user_id
         self.user_email = User.query.filter_by(id=user_id).first().email
         self.incident_id = str(uuid.uuid4())  # Generate unique incident ID
-        #self.response = None
+        # self.response = None
+
 
 class Response(db.Model):
     response_id = db.Column(db.Integer, primary_key=True)
-    incident_id = db.Column(db.String(36), db.ForeignKey("incident.incident_id"), nullable=False)
+    incident_id = db.Column(
+        db.String(36), db.ForeignKey("incident.incident_id"), nullable=False
+    )
     responded_by = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    responder_email = db.Column(db.String(150), nullable=False)  # New field
+    responder_username = db.Column(db.String(50), nullable=False)  # New field
 
-    def __init__(self, incident_id, description, responded_by):
+    def __init__(
+        self,
+        incident_id,
+        description,
+        responded_by,
+        responder_email,
+        responder_username,
+    ):
         self.incident_id = incident_id
         self.description = description
         self.responded_by = responded_by
-        #self.user_email = User.query.filter_by(id=user_id).first().email
-        self.response = None
+        self.responder_email = responder_email
+        self.responder_username = responder_username
+
 
 def send_email(to_email, subject, body):
-    sender_email = 'aditya.purushottam.kvs@gmail.com'
-    app_password = 'cxmubxhppngjferl'
+    sender_email = os.getenv("senderEmail")
+    app_password = os.getenv("appPassword")
 
     message = MIMEMultipart()
-    message['From'] = sender_email
-    message['To'] = to_email
-    message['Subject'] = subject
+    message["From"] = sender_email
+    message["To"] = to_email
+    message["Subject"] = subject
 
-    message.attach(MIMEText(body, 'plain'))
+    message.attach(MIMEText(body, "plain"))
 
     try:
-        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
             server.starttls()
             server.login(sender_email, app_password)
             server.sendmail(sender_email, to_email, message.as_string())
@@ -142,7 +145,7 @@ def login():
 
                     Best regards,
                     Incident Response Team
-                    """
+                    """,
                 )
                 flash("Logged in successfully!", "success")
                 return redirect(url_for("dashboard"))
@@ -163,6 +166,7 @@ def dashboard():
 
     incidents = Incident.query.all()
     return render_template("dashboard.html", incidents=incidents)
+
 
 # LOGOUT
 @app.route("/logout")
@@ -195,8 +199,10 @@ def register():
         try:
             db.session.add(new_user)
             db.session.commit()
-            send_email(email,f"{username} Glad to have you on Incident Reponse Mangement System",
-               f"""
+            send_email(
+                email,
+                f"{username} Glad to have you on Incident Reponse Mangement System",
+                f"""
                     Hello {username},
                 
                     Welcome to the Incident Response Management System!
@@ -207,7 +213,8 @@ def register():
                 
                     Best regards,
                     Incident Response Team
-                    """)
+                    """,
+            )
             flash("Registration successful! Please login.", "success")
             return redirect(url_for("login"))
         except:
@@ -275,9 +282,10 @@ def incident_report():
         user_id = session["user_id"]
         user = User.query.filter_by(id=user_id).first()
         print(user)
-        send_email(user.email,
-                   f"{user.username} Incident Reported at {datetime.datetime.now().strftime('%H:%M %d/%m/%Y')}",
-                   f"""
+        send_email(
+            user.email,
+            f"{user.username} Incident Reported at {datetime.datetime.now().strftime('%H:%M %d/%m/%Y')}",
+            f"""
                     Hello {user.username},
 
                     Thank you for reporting the incident. Below are the details of the incident you reported:
@@ -294,8 +302,8 @@ def incident_report():
 
                     Best regards,
                     Incident Response Team
-                    """
-                   )
+                    """,
+        )
 
         new_incident = Incident(title=title, description=description, user_id=user_id)
 
@@ -319,7 +327,6 @@ def response():
     return render_template("response.html")
 
 
-# JSON:dynamic Card
 @app.route("/api/incidents")
 def get_incidents():
     if "user_id" not in session:
@@ -335,7 +342,7 @@ def get_incidents():
             "user_id": incident.user_id,
             "user_email": incident.user_email,
             "incident_id": incident.incident_id,
-            "created_at": incident.created_at
+            "created_at": incident.created_at,
         }
         for incident in incidents
     ]
@@ -344,7 +351,7 @@ def get_incidents():
 
 @app.route("/submit-response", methods=["POST"])
 def submit_response():
-    responded_by =session["user_id"]
+    responded_by = session["user_id"]
     incident_id = request.form.get("incident_id")
     description = request.form.get("response")
 
@@ -355,19 +362,25 @@ def submit_response():
     try:
         # Find the incident by incident_id
         incident = Incident.query.filter_by(incident_id=incident_id).first()
-        #response = Response.query.filter_by(incident_id=incident_id).first()
-
         if not incident:
             flash(f"Incident not found for ID: {incident_id}", "danger")
             return redirect(url_for("response"))
 
-        #Assign response tuple to response table
-        new_response = Response(incident_id=incident_id, description=description, responded_by=responded_by)
+        # Get the user details of the responder
+        user = User.query.filter_by(id=responded_by).first()
+
+        # Assign response tuple to response table
+        new_response = Response(
+            incident_id=incident_id,
+            description=description,
+            responded_by=responded_by,
+            responder_email=user.email,  # Save responder's email
+            responder_username=user.username,  # Save responder's username
+        )
 
         # Commit the changes to the database
         db.session.add(new_response)
         db.session.commit()
-        flash("Response submitted successfully!", "success")
         return redirect(url_for("response"))
 
     except Exception as e:
@@ -375,24 +388,71 @@ def submit_response():
         app.logger.error(f"Error submitting response: {str(e)}")
         return redirect(url_for("response"))
 
-@app.route('/public_incidents')
+
+# all-incident-response route
+@app.route("/submit_responseToPublic", methods=["POST"])
+def submit_responseToPublic():
+    responded_by = session["user_id"]
+    incident_id = request.form.get("incident_id")
+    description = request.form.get("response")
+
+    if not incident_id or not description:
+        flash("Incident ID and response text are required.", "danger")
+        return redirect(url_for("public_incidents"))
+
+    try:
+        # Find the incident by incident_id
+        incident = Incident.query.filter_by(incident_id=incident_id).first()
+        if not incident:
+            flash(f"Incident not found for ID: {incident_id}", "danger")
+            return redirect(url_for("public_incidents"))
+
+        # Get the user details of the responder
+        user = User.query.filter_by(id=responded_by).first()
+
+        # Assign response tuple to response table
+        new_response = Response(
+            incident_id=incident_id,
+            description=description,
+            responded_by=responded_by,
+            responder_email=user.email,  # Save responder's email
+            responder_username=user.username,  # Save responder's username
+        )
+
+        # Commit the changes to the database
+        db.session.add(new_response)
+        db.session.commit()
+        return redirect(url_for("public_incidents"))
+
+    except Exception as e:
+        flash(f"Failed to submit response: {str(e)}", "danger")
+        app.logger.error(f"Error submitting response: {str(e)}")
+        return redirect(url_for("public_incidents"))
+
+
+@app.route("/public_incidents")
 def public_incidents():
     if "user_id" not in session:
         flash("Please login to access this page.", "warning")
         return redirect(url_for("home"))
-    return render_template('public_incidents.html')
+    return render_template("public_incidents.html")
 
-@app.route('/all-responses')
-def all_responses():
-    return render_template('all-responses.html')
+
+# Import the necessary modules and classes
+from flask import jsonify, session
+
 
 @app.route("/api/publicIncidents")
 def get_publicIncidents():
-    #user_id=Incident.query.filter_by(user_id).first().user_id
     if "user_id" not in session:
         return jsonify({"error": "Unauthorized access"}), 401
 
-    incidents = Incident.query.all()
+    current_user_id = session["user_id"]
+
+    # Query incidents excluding those created by the current user
+    incidents = Incident.query.filter(Incident.user_id != current_user_id).all()
+
+    # Construct JSON response
     incidents_data = [
         {
             "id": incident.id,
@@ -402,12 +462,34 @@ def get_publicIncidents():
             "user_id": incident.user_id,
             "user_email": incident.user_email,
             "incident_id": incident.incident_id,
-            "created_at": incident.created_at
+            "created_at": incident.created_at,
         }
         for incident in incidents
     ]
+
     return jsonify(incidents_data)
 
+
+# -----------new-------
+@app.route("/api/responses/<incident_id>")
+def get_responses_by_incident_id(incident_id):
+    if "user_id" not in session:
+        return jsonify({"error": "Unauthorized access"}), 401
+
+    try:
+        responses = Response.query.filter_by(incident_id=incident_id).all()
+        response_data = [
+            {
+                "responder_username": response.responder_username,
+                "description": response.description,
+                "created_at": response.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+            }
+            for response in responses
+        ]
+        return jsonify({"responses": response_data})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":

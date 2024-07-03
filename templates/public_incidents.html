@@ -115,8 +115,6 @@
           </div>
         </header>
       </header>
-      <!-- <div class="home-container">
-      </div> -->
     </div>
     <!-- ============= -->
     <div id="blurSection">
@@ -138,7 +136,7 @@
           <!-- Response Form -->
           <form
             id="responseForm"
-            action="{{ url_for('submit_response') }}"
+            action="{{ url_for('submit_responseToPublic') }}"
             method="POST"
           >
             <input type="hidden" name="incident_id" id="incident-id" value="" />
@@ -166,9 +164,28 @@
         </div>
       </div>
     </div>
+    <!-- --------View RESPONSES--------- -->
+    <div id="viewModal" class="container">
+      <div class="wrapper">
+        <div class="login form">
+          <header>Views</header>
+          <div id="incidentResponses">
+            <!-- responses will take place -->
+          </div>
+          <div class="navigation-btn">
+            <button id="prev" class="views-navigation-btn">&lt;</button>
+            <button id="viewCancelBtn" class="button openBtn" value="Cancel">
+              Close
+            </button>
+            <button id="next" class="views-navigation-btn">&gt;</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <script src="../static/JS/dynamicCard2.js"></script>
+    <script type="module" src="../static//JS/publicIncident.js"></script>
     <script src="../static/JS/modal.js"></script>
+    <script type="module" src="../static/JS/responsesviews.js"></script>
     <script
       defer=""
       src="https://unpkg.com/@teleporthq/teleport-custom-scripts"

@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await response.json();
-      console.log(data.message); // Log the success message
 
       // Redirect to the home page or perform any other action upon logout
       window.location.href = "/"; // Redirect to home page
