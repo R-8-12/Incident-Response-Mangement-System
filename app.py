@@ -57,7 +57,6 @@ class Incident(db.Model):
     status = db.Column(db.String(50), default="Reported")
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     user_email = db.Column(db.String(150), nullable=False)
-    response = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     def __init__(self, title, description, user_id):
