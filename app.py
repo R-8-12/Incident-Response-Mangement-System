@@ -71,20 +71,28 @@ class Incident(db.Model):
 
 class Response(db.Model):
     response_id = db.Column(db.Integer, primary_key=True)
-    incident_id = db.Column(db.String(36), db.ForeignKey("incident.incident_id"), nullable=False)
+    incident_id = db.Column(
+        db.String(36), db.ForeignKey("incident.incident_id"), nullable=False
+    )
     responded_by = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     responder_email = db.Column(db.String(150), nullable=False)  # New field
     responder_username = db.Column(db.String(50), nullable=False)  # New field
 
-    def __init__(self, incident_id, description, responded_by, responder_email, responder_username):
+    def __init__(
+        self,
+        incident_id,
+        description,
+        responded_by,
+        responder_email,
+        responder_username,
+    ):
         self.incident_id = incident_id
         self.description = description
         self.responded_by = responded_by
         self.responder_email = responder_email
         self.responder_username = responder_username
-
 
 
 def send_email(to_email, subject, body):
@@ -363,11 +371,11 @@ def submit_response():
 
         # Assign response tuple to response table
         new_response = Response(
-            incident_id=incident_id, 
-            description=description, 
+            incident_id=incident_id,
+            description=description,
             responded_by=responded_by,
             responder_email=user.email,  # Save responder's email
-            responder_username=user.username  # Save responder's username
+            responder_username=user.username,  # Save responder's username
         )
 
         # Commit the changes to the database
@@ -380,7 +388,6 @@ def submit_response():
         flash(f"Failed to submit response: {str(e)}", "danger")
         app.logger.error(f"Error submitting response: {str(e)}")
         return redirect(url_for("response"))
-
 
 
 @app.route("/public_incidents")
@@ -398,6 +405,7 @@ def all_responses():
 
 # Import the necessary modules and classes
 from flask import jsonify, session
+
 
 @app.route("/api/publicIncidents")
 def get_publicIncidents():
@@ -425,7 +433,6 @@ def get_publicIncidents():
     ]
 
     return jsonify(incidents_data)
-
 
 
 if __name__ == "__main__":
