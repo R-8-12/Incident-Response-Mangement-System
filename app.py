@@ -95,8 +95,8 @@ class Response(db.Model):
 
 
 def send_email(to_email, subject, body):
-    sender_email = 'warzone20082003@gmail.com'
-    app_password = 'kdyxgzldaizlxydl'
+    sender_email = 'aditya.purushottam.kvs@gmail.com'
+    app_password = 'lexf tcvm ggdl ggky'
     message = MIMEMultipart()
     message["From"] = sender_email
     message["To"] = to_email
