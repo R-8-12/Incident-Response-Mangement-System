@@ -96,7 +96,7 @@ class Response(db.Model):
 
 def send_email(to_email, subject, body):
     sender_email = 'aditya.purushottam.kvs@gmail.com'
-    app_password = 'lexf tcvm ggdl ggky'
+    app_password = 'aksw lipm smiq ohlr'
     message = MIMEMultipart()
     message["From"] = sender_email
     message["To"] = to_email
@@ -105,6 +105,7 @@ def send_email(to_email, subject, body):
     message.attach(MIMEText(body, "plain"))
 
     try:
+        
         with smtplib.SMTP("smtp.gmail.com", 587) as server:
             server.starttls()
             server.login(sender_email, app_password)
@@ -124,8 +125,8 @@ def home():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form["username"].strip()
+        password = request.form["password"].strip()
         user = User.query.filter_by(username=username).first()
 
         if user:
